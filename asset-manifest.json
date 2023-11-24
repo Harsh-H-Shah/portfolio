@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/react-gh-pages/static/css/main.ca6de045.css",
+    "main.js": "/react-gh-pages/static/js/main.dba20947.js",
+    "index.html": "/react-gh-pages/index.html",
+    "static/media/blob-haikei.svg": "/react-gh-pages/static/media/blob-haikei.ed4231cd548cd312fe4f.svg",
+    "main.ca6de045.css.map": "/react-gh-pages/static/css/main.ca6de045.css.map",
+    "main.dba20947.js.map": "/react-gh-pages/static/js/main.dba20947.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ca6de045.css",
+    "static/js/main.dba20947.js"
+  ]
+}
