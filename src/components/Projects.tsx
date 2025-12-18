@@ -8,56 +8,38 @@ import styles from './Projects.module.css';
 
 const projects = [
   {
+    title: 'MetaMask Security Research',
+    description:
+      'Researched Ethereum address poisoning, typosquatting, and domain drop-catching attacks affecting 175K+ attempts. Designed detection logic reducing phishing risk by 70%.',
+    image: '/images/alphatrading.png',
+    tags: ['Security', 'Ethereum', 'TypeScript', 'Open Source'],
+    github: 'https://github.com/Harsh-H-Shah',
+    live: '#',
+  },
+  {
+    title: 'ZapMap - EV Charging',
+    description:
+      'Microservices-based platform using Docker for containerization. Optimized A* pathfinding algorithm reducing route calculation latency by 60% vs standard Dijkstra.',
+    image: '/images/zapmap.png',
+    tags: ['Flask', 'Docker', 'Microservices', 'REST APIs'],
+    github: 'https://github.com/Harsh-H-Shah',
+    live: '#',
+  },
+  {
+    title: 'Rashi Pay - Offline Payments',
+    description:
+      'Smart India Hackathon 2022 Winner. Built offline digital payment app using Bluetooth, enabling 40% faster P2P transfers. Secured 10,000+ test transactions via 2048-bit RSA.',
+    image: '/images/codehub.png',
+    tags: ['React Native', 'TailwindCSS', 'Express.js', 'Bluetooth'],
+    github: 'https://github.com/Harsh-H-Shah',
+    live: '#',
+  },
+  {
     title: 'Alpha Trading',
     description:
-      'A cryptocurrency trading platform with real-time market data, portfolio tracking, and automated trading strategies using machine learning algorithms.',
+      'Low-latency trading simulation processing real-time WebSocket feeds for 500+ NSE stocks. Integrated LSTM neural networks for 30-day market forecasts with 85% accuracy.',
     image: '/images/alphatrading.png',
-    tags: ['React', 'Node.js', 'Python', 'ML'],
-    github: 'https://github.com/Harsh-H-Shah',
-    live: '#',
-  },
-  {
-    title: 'ZapMap',
-    description:
-      'An interactive mapping application for electric vehicle charging stations with route planning and real-time availability updates.',
-    image: '/images/zapmap.png',
-    tags: ['React Native', 'Firebase', 'Maps API'],
-    github: 'https://github.com/Harsh-H-Shah',
-    live: '#',
-  },
-  {
-    title: 'CodeHub',
-    description:
-      'A collaborative code sharing and review platform with syntax highlighting, live collaboration, and integrated version control.',
-    image: '/images/codehub.png',
-    tags: ['Next.js', 'MongoDB', 'WebSockets'],
-    github: 'https://github.com/Harsh-H-Shah',
-    live: '#',
-  },
-  {
-    title: 'Zero Waste',
-    description:
-      'A sustainability app that helps users reduce waste through smart shopping lists, expiry tracking, and local composting resources.',
-    image: '/images/zerowaste.png',
-    tags: ['React', 'Node.js', 'PostgreSQL'],
-    github: 'https://github.com/Harsh-H-Shah',
-    live: '#',
-  },
-  {
-    title: 'JobDetect',
-    description:
-      'An AI-powered job application tracker with automated follow-ups, interview preparation tools, and market trend analysis.',
-    image: '/images/jobDetect.png',
-    tags: ['Python', 'TensorFlow', 'Flask'],
-    github: 'https://github.com/Harsh-H-Shah',
-    live: '#',
-  },
-  {
-    title: 'MyMind',
-    description:
-      'A mental wellness app featuring guided meditations, mood tracking, journaling, and personalized wellness recommendations.',
-    image: '/images/mymind-responsive.png',
-    tags: ['React Native', 'Firebase', 'AI'],
+    tags: ['React.js', 'WebSockets', 'Firebase', 'LSTM'],
     github: 'https://github.com/Harsh-H-Shah',
     live: '#',
   },

@@ -7,47 +7,45 @@ import styles from './Skills.module.css';
 
 const skillCategories = [
   {
-    title: 'Frontend',
+    title: 'Languages',
     skills: [
-      { name: 'React', icon: '⚛️' },
-      { name: 'Next.js', icon: '▲' },
-      { name: 'TypeScript', icon: '📘' },
-      { name: 'JavaScript', icon: '📜' },
-      { name: 'HTML/CSS', icon: '🎨' },
-      { name: 'Tailwind', icon: '💨' },
-    ],
-  },
-  {
-    title: 'Backend',
-    skills: [
-      { name: 'Node.js', icon: '🟢' },
       { name: 'Python', icon: '🐍' },
-      { name: 'Java', icon: '☕' },
-      { name: 'Go', icon: '🐹' },
-      { name: 'GraphQL', icon: '◈' },
-      { name: 'REST APIs', icon: '🔌' },
+      { name: 'TypeScript', icon: '📘' },
+      { name: 'SQL', icon: '🗃️' },
+      { name: 'Bash/Shell', icon: '💻' },
+      { name: 'C++', icon: '⚡' },
     ],
   },
   {
-    title: 'Database & Cloud',
+    title: 'Systems & Networking',
     skills: [
-      { name: 'PostgreSQL', icon: '🐘' },
-      { name: 'MongoDB', icon: '🍃' },
-      { name: 'Firebase', icon: '🔥' },
+      { name: 'Linux', icon: '🐧' },
+      { name: 'TCP/IP', icon: '🌐' },
+      { name: 'DNS', icon: '📡' },
+      { name: 'HTTP/S', icon: '🔒' },
+      { name: 'Nginx', icon: '🔧' },
+      { name: 'Load Balancing', icon: '⚖️' },
+    ],
+  },
+  {
+    title: 'Infrastructure & Cloud',
+    skills: [
       { name: 'AWS', icon: '☁️' },
       { name: 'Docker', icon: '🐳' },
       { name: 'Kubernetes', icon: '⎈' },
+      { name: 'Terraform', icon: '🏗️' },
+      { name: 'CI/CD', icon: '🔄' },
     ],
   },
   {
-    title: 'Tools & Other',
+    title: 'Observability & Databases',
     skills: [
-      { name: 'Git', icon: '🔀' },
-      { name: 'Linux', icon: '🐧' },
-      { name: 'CI/CD', icon: '🔄' },
-      { name: 'Figma', icon: '🎨' },
-      { name: 'TensorFlow', icon: '🧠' },
-      { name: 'PyTorch', icon: '🔦' },
+      { name: 'Prometheus', icon: '📊' },
+      { name: 'Grafana', icon: '📈' },
+      { name: 'MySQL', icon: '🐬' },
+      { name: 'PostgreSQL', icon: '🐘' },
+      { name: 'MongoDB', icon: '🍃' },
+      { name: 'Redis', icon: '🔴' },
     ],
   },
 ];

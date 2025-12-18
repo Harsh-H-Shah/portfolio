@@ -24,7 +24,7 @@ const socialLinks = [
   },
   {
     name: 'Email',
-    href: 'mailto:harshshah@gatech.edu',
+    href: 'mailto:harsh@harsh.software',
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
         <path d="M0 3v18h24v-18h-24zm21.518 2l-9.518 7.713-9.518-7.713h19.036zm-19.518 14v-11.817l10 8.104 10-8.104v11.817h-20z"/>
@@ -49,7 +49,7 @@ export default function Hero() {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
           >
-            Hi, my name is
+            👋 Hi, I&apos;m
           </motion.p>
           
           <motion.h1
@@ -67,7 +67,7 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.5 }}
           >
-            <span className="text-gradient">Software Engineer</span> & Graduate Student
+            Designing seamless experiences through <span className="text-gradient">code & creativity</span>
           </motion.h2>
           
           <motion.p
@@ -76,9 +76,9 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.5 }}
           >
-            I&apos;m a passionate developer specializing in building exceptional digital experiences. 
-            Currently pursuing my Master&apos;s at Georgia Tech while crafting innovative solutions 
-            at the intersection of web development and machine learning.
+            Software Engineer passionate about creating impactful digital experiences — 
+            from intuitive frontends to robust backend systems. Currently pursuing my 
+            MS in Computer Science at Stony Brook University.
           </motion.p>
 
           <motion.div
