@@ -1,139 +1,262 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { useRef, useState, useEffect } from 'react';
+import Image from 'next/image';
 import styles from './Hero.module.css';
 
-const socialLinks = [
-  {
-    name: 'GitHub',
-    href: 'https://github.com/Harsh-H-Shah',
-    icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-      </svg>
-    ),
+// Glitch text effect
+function GlitchText({ text, className }: { text: string; className?: string }) {
+  const [isGlitching, setIsGlitching] = useState(false);
+  
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIsGlitching(true);
+      setTimeout(() => setIsGlitching(false), 200);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
+  
+  return (
+    <span className={`${styles.glitchText} ${isGlitching ? styles.glitching : ''} ${className || ''}`} data-text={text}>
+      {text}
+    </span>
+  );
+}
+
+// Text reveal animation
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.5,
+    },
   },
-  {
-    name: 'LinkedIn',
-    href: 'https://linkedin.com/in/harsh-h-shah',
-    icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-      </svg>
-    ),
+};
+
+const lineVariants = {
+  hidden: { 
+    opacity: 0, 
+    y: 40,
+    filter: 'blur(10px)',
   },
-  {
-    name: 'Email',
-    href: 'mailto:harsh@harsh.software',
-    icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M0 3v18h24v-18h-24zm21.518 2l-9.518 7.713-9.518-7.713h19.036zm-19.518 14v-11.817l10 8.104 10-8.104v11.817h-20z"/>
-      </svg>
-    ),
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    filter: 'blur(0px)',
+    transition: {
+      duration: 0.8,
+      ease: [0.25, 0.46, 0.45, 0.94],
+    },
   },
-];
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, scale: 0.9, y: 20 },
+  visible: (i: number) => ({
+    opacity: 1,
+    scale: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      delay: 0.8 + i * 0.1,
+      ease: [0.25, 0.46, 0.45, 0.94],
+    },
+  }),
+};
 
 export default function Hero() {
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start start', 'end start']
+  });
+  
+  const y = useTransform(scrollYProgress, [0, 1], [0, 150]);
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  const [currentTime, setCurrentTime] = useState('');
+  
+  useEffect(() => {
+    const updateTime = () => {
+      const now = new Date();
+      setCurrentTime(now.toLocaleTimeString('en-US', { hour12: false }));
+    };
+    updateTime();
+    const interval = setInterval(updateTime, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <section className={styles.hero} id="hero">
-      <div className={`container ${styles.heroContent}`}>
-        <motion.div
-          className={styles.heroText}
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
-        >
-          <motion.p
-            className={styles.greeting}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
-          >
-            👋 Hi, I&apos;m
-          </motion.p>
-          
-          <motion.h1
-            className={styles.name}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.5 }}
-          >
-            Harsh Shah
-          </motion.h1>
-          
-          <motion.h2
-            className={styles.title}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.5 }}
-          >
-            Designing seamless experiences through <span className="text-gradient">code & creativity</span>
-          </motion.h2>
-          
-          <motion.p
-            className={styles.description}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 0.5 }}
-          >
-            Software Engineer passionate about creating impactful digital experiences — 
-            from intuitive frontends to robust backend systems. Currently pursuing my 
-            MS in Computer Science at Stony Brook University.
-          </motion.p>
-
-          <motion.div
-            className={styles.cta}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6, duration: 0.5 }}
-          >
-            <a href="#projects" className="btn btn-primary">
-              View My Work
-            </a>
-            <a href="#contact" className="btn btn-secondary">
-              Get In Touch
-            </a>
-          </motion.div>
-
-          <motion.div
-            className={styles.socialLinks}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.8 }}
-          >
-            {socialLinks.map((link, index) => (
-              <motion.a
-                key={link.name}
-                href={link.href}
-                className={styles.socialLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ y: -4, scale: 1.1 }}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.8 + index * 0.1 }}
-                aria-label={link.name}
-              >
-                {link.icon}
-              </motion.a>
-            ))}
-          </motion.div>
-        </motion.div>
-
-        <motion.div
-          className={styles.scrollIndicator}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.2 }}
-        >
-          <motion.div
-            className={styles.scrollLine}
-            animate={{ y: [0, 12, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
-          />
-          <span>Scroll</span>
-        </motion.div>
+    <section className={styles.hero} id="hero" ref={containerRef}>
+      {/* TVA Grid Background */}
+      <div className={styles.tvaBackground}>
+        <div className={styles.gridLines} />
+        <div className={styles.scanLine} />
+        <div className={styles.cornerMarkers} />
       </div>
+
+      {/* Main content */}
+      <motion.div 
+        className={`container ${styles.heroContainer}`}
+        style={{ y, opacity }}
+      >
+        {/* TVA Header Bar */}
+        <motion.div 
+          className={styles.tvaHeader}
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <div className={styles.tvaLogo}>
+            <span className={styles.tvaText}>TVA</span>
+            <span className={styles.tvaSubtext}>TEMPORAL PORTFOLIO</span>
+          </div>
+          <div className={styles.tvaTime}>
+            <span className={styles.tvaLabel}>LOCAL TIME</span>
+            <span className={styles.tvaValue}>{currentTime}</span>
+          </div>
+        </motion.div>
+
+        <div className={styles.bentoGrid}>
+          
+          {/* Main hero card - TemPad style */}
+          <motion.div 
+            className={`${styles.bentoCard} ${styles.mainCard} tva-corners`}
+            custom={0}
+            variants={cardVariants}
+            initial="hidden"
+            animate="visible"
+          >
+            <div className={styles.cardHeader}>
+              <span className={styles.cardLabel}>// SUBJECT FILE</span>
+              <span className={styles.cardStatus}>● ACTIVE</span>
+            </div>
+            
+            <motion.div
+              className={styles.titleWrapper}
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+            >
+              <motion.div className={styles.titleLine} variants={lineVariants}>
+                <GlitchText text="HARSH" />
+              </motion.div>
+              <motion.div className={styles.titleLine} variants={lineVariants}>
+                <GlitchText text="SHAH" />
+              </motion.div>
+            </motion.div>
+            
+            <p className={styles.designation}>
+              &gt; MS Computer Science @ Stony Brook<br/>
+              &gt; Full-Stack Engineer & Security Researcher<br/>
+              &gt; Building ML-enabled apps & browser security tools
+            </p>
+            
+            <div className={styles.actions}>
+              <a href="#projects" className={styles.primaryBtn}>
+                SEE PROJECTS
+              </a>
+              <a href="/resume.pdf" className={styles.secondaryBtn} target="_blank">
+                DOWNLOAD RESUME
+              </a>
+            </div>
+          </motion.div>
+
+          {/* Poster card */}
+          <motion.div 
+            className={`${styles.bentoCard} ${styles.posterCard} tva-corners`}
+            custom={1}
+            variants={cardVariants}
+            initial="hidden"
+            animate="visible"
+          >
+            <div className={styles.posterFrame}>
+              <Image
+                src="/images/harsh-hero.png"
+                alt="Harsh Shah"
+                fill
+                priority
+                style={{ objectFit: 'cover' }}
+              />
+              <div className={styles.posterOverlay} />
+              <div className={styles.posterScanlines} />
+            </div>
+          </motion.div>
+
+          {/* Hackathon wins */}
+          <motion.div 
+            className={`${styles.bentoCard} ${styles.statusCard} tva-corners`}
+            custom={2}
+            variants={cardVariants}
+            initial="hidden"
+            animate="visible"
+          >
+            <span className={styles.statusIcon}>🏆</span>
+            <div className={styles.statusContent}>
+              <span className={styles.statusTitle}>HACKATHON WINS</span>
+              <span className={styles.statusValue}>HopperHacks • Smart India • HackNYU</span>
+            </div>
+          </motion.div>
+
+          <motion.div 
+            className={`${styles.bentoCard} ${styles.statusCard} tva-corners`}
+            custom={3}
+            variants={cardVariants}
+            initial="hidden"
+            animate="visible"
+          >
+            <span className={styles.statusIcon}>🔒</span>
+            <div className={styles.statusContent}>
+              <span className={styles.statusTitle}>OPEN SOURCE</span>
+              <span className={styles.statusValue}>METAMASK SECURITY CONTRIBUTOR</span>
+            </div>
+          </motion.div>
+
+          <motion.div 
+            className={`${styles.bentoCard} ${styles.locationCard} tva-corners`}
+            custom={4}
+            variants={cardVariants}
+            initial="hidden"
+            animate="visible"
+          >
+            <span className={styles.locationLabel}>LOCATION</span>
+            <span className={styles.locationValue}>NEW YORK</span>
+          </motion.div>
+
+          <motion.div 
+            className={`${styles.bentoCard} ${styles.linksCard} tva-corners`}
+            custom={5}
+            variants={cardVariants}
+            initial="hidden"
+            animate="visible"
+          >
+            <a href="https://github.com/Harsh-H-Shah" target="_blank" rel="noopener noreferrer" className={styles.tvaLink}>
+              GITHUB
+            </a>
+            <a href="https://linkedin.com/in/harsh-h-shah" target="_blank" rel="noopener noreferrer" className={styles.tvaLink}>
+              LINKEDIN
+            </a>
+            <a href="mailto:harsh@harsh.software" className={styles.tvaLink}>
+              EMAIL
+            </a>
+          </motion.div>
+
+        </div>
+      </motion.div>
+
+      {/* Bottom terminal */}
+      <motion.div 
+        className={styles.terminal}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.5 }}
+      >
+        <span className={styles.terminalPrompt}>&gt;</span>
+        <span className={styles.terminalText}>SCROLL TO CONTINUE</span>
+        <span className={styles.terminalCursor}>_</span>
+      </motion.div>
     </section>
   );
 }

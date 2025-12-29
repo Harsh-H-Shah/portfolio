@@ -1,104 +1,116 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { useInView } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 import styles from './Skills.module.css';
 
-const skillCategories = [
-  {
-    title: 'Languages',
-    skills: [
-      { name: 'Python', icon: '🐍' },
-      { name: 'TypeScript', icon: '📘' },
-      { name: 'SQL', icon: '🗃️' },
-      { name: 'Bash/Shell', icon: '💻' },
-      { name: 'C++', icon: '⚡' },
-    ],
-  },
-  {
-    title: 'Systems & Networking',
-    skills: [
-      { name: 'Linux', icon: '🐧' },
-      { name: 'TCP/IP', icon: '🌐' },
-      { name: 'DNS', icon: '📡' },
-      { name: 'HTTP/S', icon: '🔒' },
-      { name: 'Nginx', icon: '🔧' },
-      { name: 'Load Balancing', icon: '⚖️' },
-    ],
-  },
-  {
-    title: 'Infrastructure & Cloud',
-    skills: [
-      { name: 'AWS', icon: '☁️' },
-      { name: 'Docker', icon: '🐳' },
-      { name: 'Kubernetes', icon: '⎈' },
-      { name: 'Terraform', icon: '🏗️' },
-      { name: 'CI/CD', icon: '🔄' },
-    ],
-  },
-  {
-    title: 'Observability & Databases',
-    skills: [
-      { name: 'Prometheus', icon: '📊' },
-      { name: 'Grafana', icon: '📈' },
-      { name: 'MySQL', icon: '🐬' },
-      { name: 'PostgreSQL', icon: '🐘' },
-      { name: 'MongoDB', icon: '🍃' },
-      { name: 'Redis', icon: '🔴' },
-    ],
-  },
+const skillRows = [
+  ['JAVA', 'JAVASCRIPT', 'TYPESCRIPT', 'REACT', 'FLASK', 'NODE JS', 'PYTHON', 'MAVEN'],
+  ['DOCKER', 'REDIS', 'GIT', 'FIREBASE', 'STRIPE', 'REST API', 'WEB CRAWLING', 'VPS'],
+  ['LSTM', 'LLM', 'GEMINI', 'ANOMALY DETECTION', 'DATA PIPELINES', 'ML', 'BROWSER EXT', 'SECURITY'],
 ];
 
+const MarqueeRow = ({ 
+  skills, 
+  direction = 1, 
+  speed = 30 
+}: { 
+  skills: string[]; 
+  direction?: number;
+  speed?: number;
+}) => {
+  const duplicatedSkills = [...skills, ...skills, ...skills];
+  
+  return (
+    <div className={styles.marqueeWrapper}>
+      <motion.div
+        className={styles.marqueeTrack}
+        animate={{
+          x: direction > 0 ? [0, -33.33 * skills.length * 10] : [-33.33 * skills.length * 10, 0],
+        }}
+        transition={{
+          duration: speed,
+          repeat: Infinity,
+          ease: 'linear',
+        }}
+      >
+        {duplicatedSkills.map((skill, index) => (
+          <span key={`${skill}-${index}`} className={styles.skillPill}>
+            {skill}
+          </span>
+        ))}
+      </motion.div>
+    </div>
+  );
+};
+
 export default function Skills() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const sectionRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start end', 'end start']
+  });
+  
+  const y = useTransform(scrollYProgress, [0, 1], [60, -60]);
 
   return (
-    <section className={`section ${styles.skills}`} id="skills" ref={ref}>
+    <section className={`section ${styles.skills}`} id="skills" ref={sectionRef}>
       <div className="container">
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
+          className={styles.header}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
         >
-          <h2 className="section-title">Skills & Technologies</h2>
-          <p className="section-subtitle">
-            Technologies I&apos;ve been working with recently
-          </p>
+          <span className={styles.sectionLabel}>// SKILL DATABASE</span>
+          <h2 className={styles.sectionTitle}>TECHNOLOGY STACK</h2>
         </motion.div>
+      </div>
 
-        <div className={styles.skillsGrid}>
-          {skillCategories.map((category, categoryIndex) => (
-            <motion.div
-              key={category.title}
-              className={`card ${styles.skillCategory}`}
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: categoryIndex * 0.1 }}
-            >
-              <h3 className={styles.categoryTitle}>{category.title}</h3>
-              <ul className={styles.skillsList}>
-                {category.skills.map((skill, skillIndex) => (
-                  <motion.li
-                    key={skill.name}
-                    className={styles.skillItem}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={isInView ? { opacity: 1, x: 0 } : {}}
-                    transition={{
-                      duration: 0.3,
-                      delay: categoryIndex * 0.1 + skillIndex * 0.05,
-                    }}
-                    whileHover={{ x: 4 }}
-                  >
-                    <span className={styles.skillIcon}>{skill.icon}</span>
-                    <span className={styles.skillName}>{skill.name}</span>
-                  </motion.li>
-                ))}
-              </ul>
-            </motion.div>
-          ))}
-        </div>
+      {/* Full-width marquee section */}
+      <motion.div 
+        className={styles.marqueeSection}
+        style={{ y }}
+      >
+        <MarqueeRow skills={skillRows[0]} direction={1} speed={40} />
+        <MarqueeRow skills={skillRows[1]} direction={-1} speed={35} />
+        <MarqueeRow skills={skillRows[2]} direction={1} speed={45} />
+      </motion.div>
+
+      <div className="container">
+        {/* Highlights */}
+        <motion.div 
+          className={styles.highlights}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
+          <div className={`${styles.highlightCard} tva-corners`}>
+            <span className={styles.highlightIcon}>⚡</span>
+            <div className={styles.highlightContent}>
+              <span className={styles.highlightTitle}>FULL STACK</span>
+              <span className={styles.highlightValue}>REACT • FLASK • NODE</span>
+            </div>
+          </div>
+          
+          <div className={`${styles.highlightCard} tva-corners`}>
+            <span className={styles.highlightIcon}>🤖</span>
+            <div className={styles.highlightContent}>
+              <span className={styles.highlightTitle}>ML & DATA</span>
+              <span className={styles.highlightValue}>LSTM • LLM • PIPELINES</span>
+            </div>
+          </div>
+          
+          <div className={`${styles.highlightCard} tva-corners`}>
+            <span className={styles.highlightIcon}>🔒</span>
+            <div className={styles.highlightContent}>
+              <span className={styles.highlightTitle}>SECURITY</span>
+              <span className={styles.highlightValue}>BROWSER EXT • HEURISTICS</span>
+            </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

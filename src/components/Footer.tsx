@@ -1,19 +1,19 @@
+'use client';
+
 import styles from './Footer.module.css';
 
 export default function Footer() {
-  const currentYear = new Date().getFullYear();
-
   return (
     <footer className={styles.footer}>
-      <div className={`container ${styles.footerContent}`}>
-        <p className={styles.copyright}>
-          Built with{' '}
-          <span className={styles.heart}>❤</span>{' '}
-          by Harsh Shah © {currentYear}
-        </p>
-        <p className={styles.tech}>
-          Made with Next.js & Framer Motion
-        </p>
+      <div className="container">
+        <div className={styles.content}>
+          <p className={styles.copyright}>
+            © {new Date().getFullYear()} Harsh Shah
+          </p>
+          <p className={styles.tagline}>
+            Built with Next.js
+          </p>
+        </div>
       </div>
     </footer>
   );

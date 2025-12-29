@@ -5,10 +5,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 import styles from './Navbar.module.css';
 
 const navLinks = [
-  { name: 'About', href: '#about' },
-  { name: 'Skills', href: '#skills' },
-  { name: 'Projects', href: '#projects' },
-  { name: 'Contact', href: '#contact' },
+  { name: 'ABOUT', href: '#about' },
+  { name: 'SKILLS', href: '#skills' },
+  { name: 'PROJECTS', href: '#projects' },
+  { name: 'CONTACT', href: '#contact' },
 ];
 
 export default function Navbar() {
@@ -26,23 +26,25 @@ export default function Navbar() {
   return (
     <motion.nav
       className={`${styles.navbar} ${isScrolled ? styles.scrolled : ''}`}
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5, ease: 'easeOut' }}
+      initial={{ y: -100, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
     >
       <div className={`container ${styles.navContent}`}>
         <a href="#" className={styles.logo}>
-          <span className="text-gradient">HS</span>
+          <span className={styles.logoText}>TVA</span>
+          <span className={styles.logoDot}>●</span>
+          <span className={styles.logoSub}>HARSH</span>
         </a>
 
         {/* Desktop Navigation */}
         <ul className={styles.navLinks}>
           {navLinks.map((link, index) => (
-            <motion.li
+            <motion.li 
               key={link.name}
-              initial={{ opacity: 0, y: -20 }}
+              initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
+              transition={{ delay: 0.1 + index * 0.05, duration: 0.4 }}
             >
               <a href={link.href} className={styles.navLink}>
                 {link.name}
@@ -50,17 +52,17 @@ export default function Navbar() {
             </motion.li>
           ))}
           <motion.li
-            initial={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
+            transition={{ delay: 0.35, duration: 0.4 }}
           >
             <a
               href="/resume.pdf"
-              className={`btn btn-primary ${styles.resumeBtn}`}
+              className={styles.resumeBtn}
               target="_blank"
               rel="noopener noreferrer"
             >
-              Resume
+              RESUME
             </a>
           </motion.li>
         </ul>
@@ -100,11 +102,11 @@ export default function Navbar() {
               <li>
                 <a
                   href="/resume.pdf"
-                  className={`btn btn-primary ${styles.mobileResumeBtn}`}
+                  className={styles.mobileResumeBtn}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Resume
+                  RESUME
                 </a>
               </li>
             </ul>

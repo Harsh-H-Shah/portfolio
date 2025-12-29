@@ -8,11 +8,11 @@
   transition: all var(--transition-medium);
 }
 
-.navbar.scrolled {
-  background: rgba(10, 10, 15, 0.85);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border-color);
+.scrolled {
+  background: rgba(10, 8, 5, 0.95);
+  backdrop-filter: blur(10px);
   padding: 0.75rem 0;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .navContent {
@@ -21,70 +21,103 @@
   justify-content: space-between;
 }
 
+/* Logo */
 .logo {
-  font-size: 1.75rem;
-  font-weight: 800;
-  letter-spacing: -0.02em;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
 }
 
+.logoText {
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: 800;
+  color: var(--tva-orange);
+  letter-spacing: 0.15em;
+  text-shadow: 0 0 15px var(--tva-glow);
+}
+
+.logoDot {
+  color: var(--loki-green);
+  font-size: 0.5rem;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.logoSub {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+}
+
+/* Desktop Navigation */
 .navLinks {
   display: flex;
   align-items: center;
-  gap: 2rem;
+  gap: 0.25rem;
   list-style: none;
 }
 
 .navLink {
-  font-size: 0.95rem;
-  font-weight: 500;
+  padding: 0.5rem 0.875rem;
+  font-family: var(--font-display);
+  font-size: 0.6875rem;
+  font-weight: 600;
   color: var(--text-secondary);
-  position: relative;
-  padding: 0.5rem 0;
-}
-
-.navLink::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: var(--accent-gradient);
-  transition: width var(--transition-medium);
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  transition: all var(--transition-fast);
 }
 
 .navLink:hover {
-  color: var(--text-primary);
+  color: var(--tva-orange);
+  text-shadow: 0 0 10px var(--tva-glow);
 }
 
-.navLink:hover::after {
-  width: 100%;
-}
-
+/* Resume Button */
 .resumeBtn {
-  padding: 0.625rem 1.25rem;
-  font-size: 0.875rem;
+  padding: 0.5rem 1rem;
+  background: transparent;
+  border: 1px solid var(--tva-orange);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.6875rem;
+  color: var(--tva-orange);
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  margin-left: 0.5rem;
+  transition: all var(--transition-fast);
+}
+
+.resumeBtn:hover {
+  background: rgba(255, 149, 0, 0.1);
+  box-shadow: 0 0 15px var(--tva-glow);
 }
 
 /* Mobile Menu Button */
 .mobileMenuBtn {
   display: none;
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   background: transparent;
-  border: none;
+  border: 1px solid var(--border-color);
   cursor: pointer;
-  position: relative;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
 }
 
 .hamburger {
-  position: absolute;
-  width: 24px;
+  position: relative;
+  width: 14px;
   height: 2px;
-  background: var(--text-primary);
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  background: var(--tva-orange);
   transition: all var(--transition-fast);
 }
 
@@ -92,19 +125,18 @@
 .hamburger::after {
   content: '';
   position: absolute;
-  width: 24px;
+  width: 14px;
   height: 2px;
-  background: var(--text-primary);
-  left: 0;
+  background: var(--tva-orange);
   transition: all var(--transition-fast);
 }
 
 .hamburger::before {
-  top: -8px;
+  top: -5px;
 }
 
 .hamburger::after {
-  top: 8px;
+  bottom: -5px;
 }
 
 .hamburger.open {
@@ -117,7 +149,7 @@
 }
 
 .hamburger.open::after {
-  top: 0;
+  bottom: 0;
   transform: rotate(-45deg);
 }
 
@@ -130,33 +162,45 @@
 
 .mobileNavLinks {
   list-style: none;
-  padding: 1rem var(--container-padding);
+  padding: 1rem;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.25rem;
 }
 
 .mobileNavLink {
   display: block;
   padding: 0.75rem 1rem;
-  font-size: 1rem;
-  font-weight: 500;
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 600;
   color: var(--text-secondary);
-  border-radius: var(--radius-sm);
+  letter-spacing: 0.1em;
+  text-decoration: none;
   transition: all var(--transition-fast);
 }
 
 .mobileNavLink:hover {
-  background: var(--bg-card);
-  color: var(--text-primary);
+  background: rgba(255, 149, 0, 0.05);
+  color: var(--tva-orange);
 }
 
 .mobileResumeBtn {
+  display: block;
+  padding: 0.75rem 1rem;
+  background: rgba(255, 149, 0, 0.1);
+  border: 1px solid var(--tva-orange);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.75rem;
+  color: var(--tva-orange);
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  text-align: center;
   margin-top: 0.5rem;
-  width: 100%;
-  justify-content: center;
 }
 
+/* Responsive */
 @media (max-width: 768px) {
   .navLinks {
     display: none;

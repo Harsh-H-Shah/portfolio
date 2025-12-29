@@ -1,74 +1,167 @@
 .skills {
-  background: var(--bg-primary);
+  padding: 6rem 0;
+  overflow: hidden;
+  background: var(--bg-secondary);
 }
 
-.skillsGrid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem;
+.header {
+  text-align: center;
+  margin-bottom: 2.5rem;
 }
 
-.skillCategory {
-  padding: 2rem;
+.sectionLabel {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  color: var(--text-muted);
+  letter-spacing: 0.15em;
+  margin-bottom: 0.75rem;
 }
 
-.categoryTitle {
-  font-size: 1.125rem;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin-bottom: 1.25rem;
-  padding-bottom: 0.75rem;
-  border-bottom: 1px solid var(--border-color);
+.sectionTitle {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 700;
+  color: var(--tva-orange);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-shadow: 0 0 25px var(--tva-glow);
 }
 
-.skillsList {
-  list-style: none;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+/* Marquee Section - Full width */
+.marqueeSection {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  padding: 2rem 0;
+  display: flex;
+  flex-direction: column;
   gap: 0.75rem;
+  overflow: hidden;
 }
 
-.skillItem {
+.marqueeWrapper {
+  width: 100%;
+  overflow: hidden;
+  -webkit-mask: linear-gradient(90deg, transparent, #fff 5%, #fff 95%, transparent);
+  mask: linear-gradient(90deg, transparent, #fff 5%, #fff 95%, transparent);
+}
+
+.marqueeTrack {
+  display: flex;
+  gap: 0.75rem;
+  white-space: nowrap;
+}
+
+.skillPill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.625rem 1rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  transition: all var(--transition-fast);
+}
+
+.skillPill:hover {
+  background: rgba(255, 149, 0, 0.1);
+  border-color: var(--tva-orange);
+  color: var(--tva-orange);
+}
+
+/* Highlight cards */
+.highlights {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-top: 3rem;
+}
+
+.highlightCard {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  padding: 1.25rem;
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  padding: 0.5rem 0.75rem;
-  border-radius: var(--radius-sm);
-  transition: all var(--transition-fast);
-  cursor: default;
+  gap: 1rem;
+  transition: all var(--transition-medium);
+  position: relative;
 }
 
-.skillItem:hover {
-  background: var(--bg-card);
+.highlightCard:hover {
+  border-color: var(--border-hover);
+  box-shadow: var(--shadow-tva);
 }
 
-.skillIcon {
-  font-size: 1.25rem;
-  width: 28px;
-  text-align: center;
+.highlightIcon {
+  font-size: 1.5rem;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 149, 0, 0.1);
+  border: 1px solid var(--border-color);
+  flex-shrink: 0;
 }
 
-.skillName {
-  font-size: 0.95rem;
-  color: var(--text-secondary);
+.highlightContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
 }
 
-.skillItem:hover .skillName {
-  color: var(--text-primary);
+.highlightTitle {
+  font-family: var(--font-mono);
+  font-size: 0.5625rem;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
 }
 
-@media (max-width: 900px) {
-  .skillsGrid {
-    grid-template-columns: 1fr;
+.highlightValue {
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  color: var(--tva-orange);
+  letter-spacing: 0.05em;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .highlights {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
-@media (max-width: 480px) {
-  .skillsList {
-    grid-template-columns: 1fr;
+@media (max-width: 768px) {
+  .skills {
+    padding: 4rem 0;
   }
-
-  .skillCategory {
-    padding: 1.5rem;
+  
+  .marqueeSection {
+    gap: 0.5rem;
+  }
+  
+  .skillPill {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.6875rem;
+  }
+  
+  .highlights {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+    margin-top: 2rem;
+  }
+  
+  .highlightCard {
+    padding: 1rem;
+  }
+  
+  .highlightIcon {
+    width: 40px;
+    height: 40px;
+    font-size: 1.25rem;
   }
 }
