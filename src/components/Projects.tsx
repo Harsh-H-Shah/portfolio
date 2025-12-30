@@ -1,7 +1,8 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import styles from './Projects.module.css';
 
 const projects = [
@@ -12,6 +13,7 @@ const projects = [
     fullDesc: 'Real-time system to generate concise medical summaries from clinical inputs. Built LSTM-based model and integrated LLMs for high-level summarization. Implemented anomaly detection pipeline for data quality monitoring. Designed for near-real-time clinical workflows.',
     tags: ['LSTM', 'LLM', 'PYTHON', 'ML'],
     github: 'https://github.com/Harsh-H-Shah',
+    image: '/images/mockup.png',
     priority: 'HIGH',
   },
   {
@@ -21,6 +23,7 @@ const projects = [
     fullDesc: 'Accessibility-first multimodal app with voice-activated object recognition and gesture-based kiosk navigation for hearing-impaired users. Integrated Gemini for multilingual translation and voice commands. Built voice recognition and kiosk UI components.',
     tags: ['VOICE AI', 'GEMINI', 'ACCESSIBILITY'],
     github: 'https://github.com/Harsh-H-Shah',
+    image: '/images/mockup.png',
     priority: 'HIGH',
   },
   {
@@ -30,6 +33,7 @@ const projects = [
     fullDesc: 'Implemented and tested defenses against address-poisoning attacks for MetaMask extension. Design checks include similarity to previous addresses, transaction history checks, and heuristics to detect suspicious receiving addresses.',
     tags: ['TYPESCRIPT', 'SECURITY', 'BROWSER EXT'],
     github: 'https://github.com/Harsh-H-Shah/metamask-security-addition',
+    image: '/images/mockup.png',
     priority: 'HIGH',
   },
   {
@@ -39,6 +43,7 @@ const projects = [
     fullDesc: 'Full-stack microservices platform for EV charging station discovery and route optimization. Optimized A* pathfinding reducing route calculation latency by 60%. Built scalable REST APIs for real-time station availability.',
     tags: ['FLASK', 'DOCKER', 'REST API'],
     github: 'https://github.com/Harsh-H-Shah',
+    image: '/images/zapmap.png',
     priority: 'MEDIUM',
   },
   {
@@ -48,6 +53,7 @@ const projects = [
     fullDesc: 'Offline payment app using Bluetooth with 2048-bit RSA encryption. Enables secure transactions in areas with no internet connectivity. Won Smart India Hackathon 2022.',
     tags: ['REACT NATIVE', 'NODE JS', 'CRYPTO'],
     github: 'https://github.com/Harsh-H-Shah',
+    image: '/images/rashipay.png',
     priority: 'HIGH',
   },
   {
@@ -57,6 +63,7 @@ const projects = [
     fullDesc: 'Low-latency trading simulation with WebSocket feeds for 500+ stocks. Designed algorithmic strategies and backtesting pipelines. LSTM predictions with 85% accuracy for price movement.',
     tags: ['REACT', 'WEBSOCKET', 'ML'],
     github: 'https://github.com/Harsh-H-Shah',
+    image: '/images/alphatrading.png',
     priority: 'MEDIUM',
   },
 ];
@@ -90,11 +97,10 @@ const cardVariants = {
 };
 
 const modalVariants = {
-  hidden: { opacity: 0, scale: 0.9, y: 20 },
+  hidden: { opacity: 0, scale: 0.8 },
   visible: { 
     opacity: 1, 
     scale: 1, 
-    y: 0,
     transition: {
       duration: 0.4,
       ease: [0.25, 0.46, 0.45, 0.94],
@@ -102,14 +108,32 @@ const modalVariants = {
   },
   exit: { 
     opacity: 0, 
-    scale: 0.9, 
-    y: 20,
+    scale: 0.8,
     transition: { duration: 0.3 },
   },
 };
 
 export default function Projects() {
   const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
+
+  // Close modal on escape key
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setSelectedProject(null);
+    };
+    window.addEventListener('keydown', handleEscape);
+    return () => window.removeEventListener('keydown', handleEscape);
+  }, []);
+
+  // Prevent body scroll when modal is open
+  useEffect(() => {
+    if (selectedProject) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [selectedProject]);
 
   return (
     <section className={`section ${styles.projects}`} id="projects">
@@ -182,7 +206,7 @@ export default function Projects() {
         </motion.div>
       </div>
 
-      {/* Modal Overlay */}
+      {/* Modal Overlay - Click to close */}
       <AnimatePresence>
         {selectedProject && (
           <>
@@ -195,49 +219,66 @@ export default function Projects() {
             />
             
             <motion.div 
-              className={`${styles.modal} tva-corners`}
+              className={styles.modal}
               variants={modalVariants}
               initial="hidden"
               animate="visible"
               exit="exit"
+              onClick={() => setSelectedProject(null)}
             >
-              <button 
-                className={styles.closeBtn}
-                onClick={() => setSelectedProject(null)}
+              <div 
+                className={styles.modalInner}
+                onClick={(e) => e.stopPropagation()}
               >
-                ✕
-              </button>
-              
-              <div className={styles.modalContent}>
-                <div className={styles.modalHeader}>
-                  <span className={styles.modalNumber}>CASE FILE</span>
-                  <span className={`${styles.modalPriority} ${styles[selectedProject.priority.toLowerCase()]}`}>
-                    PRIORITY: {selectedProject.priority}
-                  </span>
-                </div>
-                
-                <h3 className={styles.modalTitle}>{selectedProject.title}</h3>
-                <p className={styles.modalDesc}>&gt; {selectedProject.fullDesc}</p>
-                
-                <div className={styles.modalTags}>
-                  {selectedProject.tags.map((tag) => (
-                    <span key={tag} className={styles.modalTag}>{tag}</span>
-                  ))}
-                </div>
-                
-                <a 
-                  href={selectedProject.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={styles.modalLink}
+                <button 
+                  className={styles.closeBtn}
+                  onClick={() => setSelectedProject(null)}
                 >
-                  VIEW ON GITHUB →
-                </a>
+                  ✕
+                </button>
+                
+                {/* Project Image */}
+                <div className={styles.modalImage}>
+                  <Image
+                    src={selectedProject.image}
+                    alt={selectedProject.title}
+                    fill
+                    style={{ objectFit: 'cover' }}
+                  />
+                  <div className={styles.modalImageOverlay} />
+                </div>
+                
+                <div className={styles.modalContent}>
+                  <div className={styles.modalHeader}>
+                    <span className={styles.modalNumber}>CASE FILE</span>
+                    <span className={`${styles.modalPriority} ${styles[selectedProject.priority.toLowerCase()]}`}>
+                      PRIORITY: {selectedProject.priority}
+                    </span>
+                  </div>
+                  
+                  <h3 className={styles.modalTitle}>{selectedProject.title}</h3>
+                  <p className={styles.modalDesc}>&gt; {selectedProject.fullDesc}</p>
+                  
+                  <div className={styles.modalTags}>
+                    {selectedProject.tags.map((tag) => (
+                      <span key={tag} className={styles.modalTag}>{tag}</span>
+                    ))}
+                  </div>
+                  
+                  <a 
+                    href={selectedProject.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.modalLink}
+                  >
+                    VIEW ON GITHUB →
+                  </a>
+                </div>
+                
+                {/* Corner decorations */}
+                <div className={styles.modalCornerTL} />
+                <div className={styles.modalCornerBR} />
               </div>
-              
-              {/* Corner decorations */}
-              <div className={styles.modalCornerTL} />
-              <div className={styles.modalCornerBR} />
             </motion.div>
           </>
         )}

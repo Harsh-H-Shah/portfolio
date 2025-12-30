@@ -42,14 +42,31 @@
 .marqueeWrapper {
   width: 100%;
   overflow: hidden;
-  -webkit-mask: linear-gradient(90deg, transparent, #fff 5%, #fff 95%, transparent);
-  mask: linear-gradient(90deg, transparent, #fff 5%, #fff 95%, transparent);
+  position: relative;
 }
 
+/* The track contains all skills and slides infinitely */
 .marqueeTrack {
   display: flex;
   gap: 0.75rem;
   white-space: nowrap;
+  width: max-content;
+  animation: marqueeScroll linear infinite;
+}
+
+/* Reverse direction */
+.marqueeTrack.reverse {
+  animation-direction: reverse;
+}
+
+/* The keyframes move the track by 25% (since we have 4 copies, moving 25% = 1 full set) */
+@keyframes marqueeScroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-25%);
+  }
 }
 
 .skillPill {
@@ -63,6 +80,7 @@
   color: var(--text-secondary);
   letter-spacing: 0.05em;
   white-space: nowrap;
+  flex-shrink: 0;
   transition: all var(--transition-fast);
 }
 
@@ -75,7 +93,7 @@
 /* Highlight cards */
 .highlights {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 1rem;
   margin-top: 3rem;
 }
@@ -131,7 +149,7 @@
 /* Responsive */
 @media (max-width: 1024px) {
   .highlights {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 

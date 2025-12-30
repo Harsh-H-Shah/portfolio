@@ -32,9 +32,8 @@ export default function Navbar() {
     >
       <div className={`container ${styles.navContent}`}>
         <a href="#" className={styles.logo}>
-          <span className={styles.logoText}>TVA</span>
-          <span className={styles.logoDot}>●</span>
-          <span className={styles.logoSub}>HARSH</span>
+          <span className={styles.logoText}>HARSH</span>
+          <span className={styles.logoDot}>.</span>
         </a>
 
         {/* Desktop Navigation */}

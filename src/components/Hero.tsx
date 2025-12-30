@@ -90,6 +90,63 @@ export default function Hero() {
 
   return (
     <section className={styles.hero} id="hero" ref={containerRef}>
+      {/* Loki Clock Background - Centered rotating rings */}
+      <div className={styles.clockBackground}>
+        <div className={styles.lokiClock}>
+          {/* Outer ring */}
+          <div className={styles.clockOuterRing}>
+            {[...Array(12)].map((_, i) => (
+              <div 
+                key={i} 
+                className={styles.clockMarker}
+                style={{ transform: `rotate(${i * 30}deg)` }}
+              />
+            ))}
+          </div>
+          
+          {/* Middle spinning ring */}
+          <div className={styles.clockMiddleRing}>
+            {[...Array(24)].map((_, i) => (
+              <div 
+                key={i} 
+                className={styles.clockTick}
+                style={{ transform: `rotate(${i * 15}deg)` }}
+              />
+            ))}
+          </div>
+          
+          {/* Inner spinning ring (opposite direction) */}
+          <div className={styles.clockInnerRing}>
+            {[...Array(8)].map((_, i) => (
+              <div 
+                key={i} 
+                className={styles.clockSegment}
+                style={{ transform: `rotate(${i * 45}deg)` }}
+              />
+            ))}
+          </div>
+          
+          {/* Center glowing orb */}
+          <div className={styles.clockCenter}>
+            <div className={styles.clockGlow} />
+          </div>
+          
+          {/* Timeline branches */}
+          <div className={styles.timelineBranches}>
+            {[...Array(6)].map((_, i) => (
+              <div 
+                key={i} 
+                className={styles.branch}
+                style={{ 
+                  transform: `rotate(${i * 60}deg)`,
+                  animationDelay: `${i * 0.5}s`
+                }}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+      
       {/* TVA Grid Background */}
       <div className={styles.tvaBackground}>
         <div className={styles.gridLines} />
@@ -149,9 +206,9 @@ export default function Hero() {
             </motion.div>
             
             <p className={styles.designation}>
-              &gt; MS Computer Science @ Stony Brook<br/>
-              &gt; Full-Stack Engineer & Security Researcher<br/>
-              &gt; Building ML-enabled apps & browser security tools
+              &gt; MS CS @ Stony Brook University<br/>
+              &gt; Full-Stack • ML/AI • Blockchain Security<br/>
+              &gt; 3x Hackathon Winner • MetaMask Contributor
             </p>
             
             <div className={styles.actions}>
@@ -244,18 +301,6 @@ export default function Hero() {
           </motion.div>
 
         </div>
-      </motion.div>
-
-      {/* Bottom terminal */}
-      <motion.div 
-        className={styles.terminal}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5 }}
-      >
-        <span className={styles.terminalPrompt}>&gt;</span>
-        <span className={styles.terminalText}>SCROLL TO CONTINUE</span>
-        <span className={styles.terminalCursor}>_</span>
       </motion.div>
     </section>
   );
