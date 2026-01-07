@@ -1,11 +1,49 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import AppWrapper from "@/components/AppWrapper";
 
 const inter = Inter({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-inter",
+});
+
+import {
+  UnifrakturMaguntia,
+  Special_Elite,
+  Homemade_Apple,
+  Rye,
+  Oswald,
+} from "next/font/google";
+
+const unifraktur = UnifrakturMaguntia({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-unifraktur",
+});
+
+const specialElite = Special_Elite({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-special-elite",
+});
+
+const homemadeApple = Homemade_Apple({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-homemade-apple",
+});
+
+const rye = Rye({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-rye",
+});
+
+const oswald = Oswald({
+  subsets: ["latin"],
+  variable: "--font-oswald",
 });
 
 export const metadata: Metadata = {
@@ -60,10 +98,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang="en" className={`${inter.variable} ${unifraktur.variable} ${specialElite.variable} ${homemadeApple.variable} ${rye.variable} ${oswald.variable}`}>
       <body>
         <div className="bg-gradient" />
-        {children}
+        <AppWrapper>
+          {children}
+        </AppWrapper>
       </body>
     </html>
   );

@@ -1,6 +1,9 @@
 .contact {
-  padding: 8rem 0;
+  padding: 10rem 0;
   position: relative;
+  overflow: hidden;
+  /* Deep void background */
+  background: radial-gradient(circle at center, #0a0805 0%, #000 100%);
 }
 
 .contact::before {
@@ -13,130 +16,217 @@
   background: linear-gradient(90deg, transparent, var(--tva-orange-dim), transparent);
 }
 
-/* Corner decorations */
-.cornerTL,
-.cornerBR {
+/* =========================================
+   TIMELINE FRACTURE ANIMATION
+   ========================================= */
+.timelineFracture {
   position: absolute;
-  width: 30px;
-  height: 30px;
-  border-color: var(--tva-orange);
-  border-style: solid;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100vw;
+  height: 100vh;
   pointer-events: none;
+  z-index: 1;
+  opacity: 0.3;
 }
 
-.cornerTL {
-  top: 2rem;
-  left: 2rem;
-  border-width: 2px 0 0 2px;
+.fractureLine {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200vw;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--tva-orange), transparent);
+  transform-origin: center;
+  animation: fractureSpin 20s linear infinite;
 }
 
-.cornerBR {
-  bottom: 2rem;
-  right: 2rem;
-  border-width: 0 2px 2px 0;
+.fractureLine:nth-child(2) { animation-delay: -5s; animation-duration: 25s; opacity: 0.5; }
+.fractureLine:nth-child(3) { animation-delay: -10s; animation-duration: 30s; opacity: 0.3; }
+
+@keyframes fractureSpin {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
+/* Vortex Center */
+.vortexCenter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  border: 1px dashed rgba(255, 149, 0, 0.2);
+  animation: vortexRotate 10s linear infinite reverse;
+}
+
+@keyframes vortexRotate {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(-360deg); }
+}
+
+/* =========================================
+   CONTENT STYLING
+   ========================================= */
 .content {
-  max-width: 600px;
+  max-width: 700px;
   margin: 0 auto;
   text-align: center;
+  position: relative;
+  z-index: 10;
+  background: rgba(10, 8, 5, 0.7); /* Readable background */
+  backdrop-filter: blur(10px);
+  padding: 3rem;
+  border: 1px solid rgba(255, 149, 0, 0.1);
+  border-radius: 4px; /* Slight rounding */
+  box-shadow: 0 0 50px rgba(0,0,0,0.8);
 }
 
 .sectionLabel {
   display: inline-block;
   font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  color: var(--text-muted);
-  letter-spacing: 0.15em;
-  margin-bottom: 1rem;
+  font-size: 0.75rem;
+  color: var(--loki-green); /* Contrast accent */
+  letter-spacing: 0.2em;
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
 }
 
 .heading {
   font-family: var(--font-display);
-  font-size: clamp(2rem, 5vw, 3rem);
-  font-weight: 700;
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 800;
   color: var(--tva-orange);
-  letter-spacing: 0.1em;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
   text-shadow: 0 0 30px var(--tva-glow);
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.1;
 }
 
 .text {
   font-family: var(--font-mono);
-  font-size: 0.9375rem;
+  font-size: 1rem;
   color: var(--text-secondary);
   line-height: 1.8;
-  margin-bottom: 2.5rem;
+  margin-bottom: 3.5rem;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
+/* Transmission Button - Enhanced */
 .cta {
-  display: inline-block;
-  padding: 1rem 2rem;
-  background: var(--tva-orange);
-  border: 1px solid var(--tva-orange);
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1.25rem 4rem;
+  background: transparent;
+  border: 2px solid var(--tva-orange);
   font-family: var(--font-display);
-  font-size: 0.875rem;
+  font-size: 1.1rem;
   font-weight: 700;
-  color: var(--bg-primary);
-  letter-spacing: 0.1em;
+  color: var(--tva-orange);
+  letter-spacing: 0.25em;
   text-decoration: none;
-  transition: all var(--transition-medium);
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  overflow: hidden;
+  text-transform: uppercase;
+  box-shadow: 0 0 20px rgba(255, 149, 0, 0.1);
+}
+
+.cta::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: var(--tva-orange);
+  transition: left 0.4s ease;
+  z-index: -1;
 }
 
 .cta:hover {
-  background: var(--tva-orange-bright);
-  box-shadow: var(--glow-tva);
+  color: #000;
+  box-shadow: 0 0 40px var(--tva-glow);
+  transform: scale(1.05);
 }
 
+.cta:hover::before {
+  left: 0;
+}
+
+/* Links - Enhanced */
 .links {
   display: flex;
   justify-content: center;
-  gap: 2rem;
-  margin-top: 3rem;
+  gap: 3rem;
+  margin-top: 5rem;
   padding-top: 2rem;
-  border-top: 1px solid var(--border-color);
+  border-top: 1px solid rgba(255, 149, 0, 0.3);
 }
 
 .links a {
   font-family: var(--font-display);
-  font-size: 0.6875rem;
-  font-weight: 600;
-  color: var(--text-secondary);
-  letter-spacing: 0.1em;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  letter-spacing: 0.15em;
   text-decoration: none;
-  transition: all var(--transition-fast);
+  transition: all 0.3s;
+  position: relative;
+  padding: 0.5rem 1rem;
 }
 
 .links a:hover {
-  color: var(--tva-orange);
-  text-shadow: 0 0 10px var(--tva-glow);
+  color: var(--tva-orange-bright);
+  text-shadow: 0 0 15px var(--tva-glow);
+  background: rgba(255, 149, 0, 0.05);
+}
+
+/* Corner decorations */
+.cornerTL,
+.cornerBR {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  border-color: var(--tva-orange);
+  border-style: solid;
+  pointer-events: none;
+  z-index: 20;
+  transition: all 0.5s ease;
+  opacity: 0.8;
+}
+
+.cornerTL {
+  top: 2rem;
+  left: 2rem;
+  border-width: 4px 0 0 4px;
+}
+
+.cornerBR {
+  bottom: 2rem;
+  right: 2rem;
+  border-width: 0 4px 4px 0;
 }
 
 /* Responsive */
 @media (max-width: 768px) {
   .contact {
-    padding: 5rem 0;
+    padding: 6rem 0;
   }
   
-  .cornerTL,
-  .cornerBR {
-    width: 20px;
-    height: 20px;
+  .content {
+    padding: 1.5rem;
+    width: 90%;
   }
-  
-  .cornerTL {
-    top: 1rem;
-    left: 1rem;
-  }
-  
-  .cornerBR {
-    bottom: 1rem;
-    right: 1rem;
-  }
-  
-  .links {
-    gap: 1.5rem;
-    flex-wrap: wrap;
+
+  .fractureLine {
+    width: 150vw;
   }
 }

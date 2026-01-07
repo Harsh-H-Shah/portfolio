@@ -278,8 +278,8 @@ export default function Hero() {
             initial="hidden"
             animate="visible"
           >
-            <span className={styles.locationLabel}>LOCATION</span>
-            <span className={styles.locationValue}>NEW YORK</span>
+            <span className={styles.locationLabel}>EDUCATION</span>
+            <span className={styles.locationValue}>MS CS (3.71 GPA)</span>
           </motion.div>
 
           <motion.div 

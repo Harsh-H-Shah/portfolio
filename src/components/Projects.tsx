@@ -1,7 +1,8 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import Image from 'next/image';
 import styles from './Projects.module.css';
 
@@ -13,7 +14,7 @@ const projects = [
     fullDesc: 'Real-time system to generate concise medical summaries from clinical inputs. Built LSTM-based model and integrated LLMs for high-level summarization. Implemented anomaly detection pipeline for data quality monitoring. Designed for near-real-time clinical workflows.',
     tags: ['LSTM', 'LLM', 'PYTHON', 'ML'],
     github: 'https://github.com/Harsh-H-Shah',
-    image: '/images/mockup.png',
+    image: '/images/healthsynopsis.jpg',
     priority: 'HIGH',
   },
   {
@@ -23,7 +24,7 @@ const projects = [
     fullDesc: 'Accessibility-first multimodal app with voice-activated object recognition and gesture-based kiosk navigation for hearing-impaired users. Integrated Gemini for multilingual translation and voice commands. Built voice recognition and kiosk UI components.',
     tags: ['VOICE AI', 'GEMINI', 'ACCESSIBILITY'],
     github: 'https://github.com/Harsh-H-Shah',
-    image: '/images/mockup.png',
+    image: '/images/spotifind.jpg',
     priority: 'HIGH',
   },
   {
@@ -33,7 +34,7 @@ const projects = [
     fullDesc: 'Implemented and tested defenses against address-poisoning attacks for MetaMask extension. Design checks include similarity to previous addresses, transaction history checks, and heuristics to detect suspicious receiving addresses.',
     tags: ['TYPESCRIPT', 'SECURITY', 'BROWSER EXT'],
     github: 'https://github.com/Harsh-H-Shah/metamask-security-addition',
-    image: '/images/mockup.png',
+    image: '/images/metamask.jpg',
     priority: 'HIGH',
   },
   {
@@ -43,7 +44,7 @@ const projects = [
     fullDesc: 'Full-stack microservices platform for EV charging station discovery and route optimization. Optimized A* pathfinding reducing route calculation latency by 60%. Built scalable REST APIs for real-time station availability.',
     tags: ['FLASK', 'DOCKER', 'REST API'],
     github: 'https://github.com/Harsh-H-Shah',
-    image: '/images/zapmap.png',
+    image: '/images/zapmap.jpg',
     priority: 'MEDIUM',
   },
   {
@@ -53,7 +54,7 @@ const projects = [
     fullDesc: 'Offline payment app using Bluetooth with 2048-bit RSA encryption. Enables secure transactions in areas with no internet connectivity. Won Smart India Hackathon 2022.',
     tags: ['REACT NATIVE', 'NODE JS', 'CRYPTO'],
     github: 'https://github.com/Harsh-H-Shah',
-    image: '/images/rashipay.png',
+    image: '/images/rashipay-new.png',
     priority: 'HIGH',
   },
   {
@@ -63,7 +64,7 @@ const projects = [
     fullDesc: 'Low-latency trading simulation with WebSocket feeds for 500+ stocks. Designed algorithmic strategies and backtesting pipelines. LSTM predictions with 85% accuracy for price movement.',
     tags: ['REACT', 'WEBSOCKET', 'ML'],
     github: 'https://github.com/Harsh-H-Shah',
-    image: '/images/alphatrading.png',
+    image: '/images/alphatrading.jpg',
     priority: 'MEDIUM',
   },
 ];
@@ -206,10 +207,10 @@ export default function Projects() {
         </motion.div>
       </div>
 
-      {/* Modal Overlay - Click to close */}
+      {/* Modal Overlay - Portalled to body to escape z-index hell */}
       <AnimatePresence>
         {selectedProject && (
-          <>
+          <Portal>
             <motion.div 
               className={styles.overlay}
               initial={{ opacity: 0 }}
@@ -280,9 +281,21 @@ export default function Projects() {
                 <div className={styles.modalCornerBR} />
               </div>
             </motion.div>
-          </>
+          </Portal>
         )}
       </AnimatePresence>
     </section>
   );
+}
+
+// Portal Component
+function Portal({ children }: { children: React.ReactNode }) {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+    return () => setMounted(false);
+  }, []);
+
+  return mounted ? createPortal(children, document.body) : null;
 }

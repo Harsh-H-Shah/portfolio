@@ -10,7 +10,7 @@
 
 /* Normal state */
 .content.normal {
-  transform: scale(1) translateY(0);
+  transform: none;
   opacity: 1;
   filter: blur(0) brightness(1) hue-rotate(0deg);
 }

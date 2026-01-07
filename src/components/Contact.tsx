@@ -7,6 +7,14 @@ export default function Contact() {
   return (
     <section className={`section ${styles.contact}`} id="contact">
       <div className="container">
+        {/* Animation Background Layer */}
+        <div className={styles.timelineFracture}>
+           <div className={styles.fractureLine} />
+           <div className={styles.fractureLine} />
+           <div className={styles.fractureLine} />
+           <div className={styles.vortexCenter} />
+        </div>
+
         <motion.div
           className={styles.content}
           initial={{ opacity: 0, y: 40 }}
