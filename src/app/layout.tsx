@@ -86,7 +86,7 @@ export const metadata: Metadata = {
     images: ["/images/logo.png"],
   },
   icons: {
-    icon: "/favicon.ico",
+    icon: "/favicon-h.png",
     apple: "/images/logo192.png",
   },
   manifest: "/manifest.json",

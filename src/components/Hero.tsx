@@ -215,7 +215,7 @@ export default function Hero() {
               <a href="#projects" className={styles.primaryBtn}>
                 SEE PROJECTS
               </a>
-              <a href="/resume.pdf" className={styles.secondaryBtn} target="_blank">
+              <a href="/Harsh_Shah.pdf" className={styles.secondaryBtn} target="_blank">
                 DOWNLOAD RESUME
               </a>
             </div>

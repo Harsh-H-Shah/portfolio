@@ -56,7 +56,7 @@ export default function Navbar() {
             transition={{ delay: 0.35, duration: 0.4 }}
           >
             <a
-              href="/resume.pdf"
+              href="/Harsh_Shah.pdf"
               className={styles.resumeBtn}
               target="_blank"
               rel="noopener noreferrer"
@@ -100,7 +100,7 @@ export default function Navbar() {
               ))}
               <li>
                 <a
-                  href="/resume.pdf"
+                      href="/Harsh_Shah.pdf"
                   className={styles.mobileResumeBtn}
                   target="_blank"
                   rel="noopener noreferrer"
