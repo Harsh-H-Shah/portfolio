@@ -61,8 +61,8 @@ export default function Skills() {
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <span className={styles.sectionLabel}>// TECHNOLOGY STACK</span>
-          <h2 className={styles.sectionTitle}>SKILLS & EXPERTISE</h2>
+          <span className={styles.sectionLabel}>Technology Stack</span>
+          <h2 className={styles.sectionTitle}>Skills & Expertise</h2>
         </motion.div>
       </div>
 
@@ -85,7 +85,7 @@ export default function Skills() {
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          <div className={`${styles.highlightCard} tva-corners`}>
+          <div className={styles.highlightCard}>
             <span className={styles.highlightIcon}>🚀</span>
             <div className={styles.highlightContent}>
               <span className={styles.highlightTitle}>FULL STACK</span>
@@ -93,7 +93,7 @@ export default function Skills() {
             </div>
           </div>
           
-          <div className={`${styles.highlightCard} tva-corners`}>
+          <div className={styles.highlightCard}>
             <span className={styles.highlightIcon}>🧠</span>
             <div className={styles.highlightContent}>
               <span className={styles.highlightTitle}>ML & AI</span>
@@ -101,18 +101,18 @@ export default function Skills() {
             </div>
           </div>
           
-          <div className={`${styles.highlightCard} tva-corners`}>
+          <div className={styles.highlightCard}>
             <span className={styles.highlightIcon}>⛓️</span>
             <div className={styles.highlightContent}>
-              <span className={styles.highlightTitle}>BLOCKCHAIN</span>
+              <span className={styles.highlightTitle}>Blockchain</span>
               <span className={styles.highlightValue}>Solidity • Web3 • Security</span>
             </div>
           </div>
           
-          <div className={`${styles.highlightCard} tva-corners`}>
+          <div className={styles.highlightCard}>
             <span className={styles.highlightIcon}>⚡</span>
             <div className={styles.highlightContent}>
-              <span className={styles.highlightTitle}>SYSTEMS</span>
+              <span className={styles.highlightTitle}>Systems</span>
               <span className={styles.highlightValue}>Microservices • K8s • AWS</span>
             </div>
           </div>

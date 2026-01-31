@@ -12,9 +12,9 @@
 .sectionLabel {
   display: inline-block;
   font-family: var(--font-mono);
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   color: var(--text-muted);
-  letter-spacing: 0.15em;
+  letter-spacing: 0.1em;
   margin-bottom: 0.75rem;
 }
 
@@ -22,10 +22,8 @@
   font-family: var(--font-display);
   font-size: clamp(1.75rem, 4vw, 2.5rem);
   font-weight: 700;
-  color: var(--tva-orange);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  text-shadow: 0 0 25px var(--tva-glow);
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
 }
 
 /* Marquee Section - Full width */
@@ -45,7 +43,6 @@
   position: relative;
 }
 
-/* The track contains all skills and slides infinitely */
 .marqueeTrack {
   display: flex;
   gap: 0.75rem;
@@ -54,12 +51,10 @@
   animation: marqueeScroll linear infinite;
 }
 
-/* Reverse direction */
 .marqueeTrack.reverse {
   animation-direction: reverse;
 }
 
-/* The keyframes move the track by 25% (since we have 4 copies, moving 25% = 1 full set) */
 @keyframes marqueeScroll {
   0% {
     transform: translateX(0);
@@ -75,19 +70,18 @@
   padding: 0.625rem 1rem;
   background: var(--bg-card);
   border: 1px solid var(--border-color);
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
+  border-radius: var(--radius-md);
+  font-size: 0.8125rem;
   color: var(--text-secondary);
-  letter-spacing: 0.05em;
   white-space: nowrap;
   flex-shrink: 0;
   transition: all var(--transition-fast);
 }
 
 .skillPill:hover {
-  background: rgba(255, 149, 0, 0.1);
-  border-color: var(--tva-orange);
-  color: var(--tva-orange);
+  background: rgba(59, 130, 246, 0.1);
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
 }
 
 /* Highlight cards */
@@ -101,6 +95,7 @@
 .highlightCard {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
   padding: 1.25rem;
   display: flex;
   align-items: center;
@@ -111,7 +106,8 @@
 
 .highlightCard:hover {
   border-color: var(--border-hover);
-  box-shadow: var(--shadow-tva);
+  box-shadow: var(--shadow-soft);
+  transform: translateY(-2px);
 }
 
 .highlightIcon {
@@ -121,8 +117,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 149, 0, 0.1);
+  background: rgba(59, 130, 246, 0.1);
   border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
   flex-shrink: 0;
 }
 
@@ -133,17 +130,17 @@
 }
 
 .highlightTitle {
-  font-family: var(--font-mono);
-  font-size: 0.5625rem;
+  font-size: 0.6875rem;
   color: var(--text-muted);
-  letter-spacing: 0.1em;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-weight: 500;
 }
 
 .highlightValue {
-  font-family: var(--font-display);
-  font-size: 0.75rem;
-  color: var(--tva-orange);
-  letter-spacing: 0.05em;
+  font-size: 0.875rem;
+  color: var(--text-primary);
+  font-weight: 500;
 }
 
 /* Responsive */
@@ -164,7 +161,7 @@
   
   .skillPill {
     padding: 0.5rem 0.75rem;
-    font-size: 0.6875rem;
+    font-size: 0.75rem;
   }
   
   .highlights {

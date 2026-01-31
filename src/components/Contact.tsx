@@ -7,13 +7,8 @@ export default function Contact() {
   return (
     <section className={`section ${styles.contact}`} id="contact">
       <div className="container">
-        {/* Animation Background Layer */}
-        <div className={styles.timelineFracture}>
-           <div className={styles.fractureLine} />
-           <div className={styles.fractureLine} />
-           <div className={styles.fractureLine} />
-           <div className={styles.vortexCenter} />
-        </div>
+        {/* Subtle gradient background */}
+        <div className={styles.gradientBg} />
 
         <motion.div
           className={styles.content}
@@ -22,7 +17,7 @@ export default function Contact() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <span className={styles.sectionLabel}>// INITIATE CONTACT</span>
+          <span className={styles.sectionLabel}>Get in Touch</span>
           
           <motion.h2 
             className={styles.heading}
@@ -31,7 +26,7 @@ export default function Contact() {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
-            ESTABLISH CONNECTION
+            Let&apos;s Work Together
           </motion.h2>
           
           <motion.p 
@@ -41,9 +36,10 @@ export default function Contact() {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            &gt; Open to internship and full-time opportunities in software engineering, data engineering, and product-focused ML work.
+            Open to internship and full-time opportunities in software engineering, 
+            data engineering, and product-focused ML work.
             <br />
-            &gt; Let&apos;s build something impactful together.
+            Let&apos;s build something impactful together.
           </motion.p>
 
           <motion.a
@@ -55,7 +51,7 @@ export default function Contact() {
             transition={{ duration: 0.6, delay: 0.3 }}
             whileHover={{ scale: 1.02 }}
           >
-            SEND TRANSMISSION
+            Say Hello
           </motion.a>
 
           <motion.div 
@@ -66,10 +62,10 @@ export default function Contact() {
             transition={{ duration: 0.6, delay: 0.4 }}
           >
             <a href="https://github.com/Harsh-H-Shah" target="_blank" rel="noopener noreferrer">
-              GITHUB
+              GitHub
             </a>
             <a href="https://linkedin.com/in/harsh-h-shah" target="_blank" rel="noopener noreferrer">
-              LINKEDIN
+              LinkedIn
             </a>
             <a href="mailto:harsh@harsh.software">
               harsh@harsh.software
@@ -77,10 +73,6 @@ export default function Contact() {
           </motion.div>
         </motion.div>
       </div>
-      
-      {/* Corner decorations */}
-      <div className={styles.cornerTL} />
-      <div className={styles.cornerBR} />
     </section>
   );
 }

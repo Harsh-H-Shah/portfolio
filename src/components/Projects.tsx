@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import Image from 'next/image';
 import styles from './Projects.module.css';
@@ -9,63 +9,63 @@ import styles from './Projects.module.css';
 const projects = [
   {
     id: 1,
-    title: 'HEALTHSYNOPSIS',
+    title: 'HealthSynopsis',
     description: 'AI-enhanced medical summarization',
     fullDesc: 'Real-time system to generate concise medical summaries from clinical inputs. Built LSTM-based model and integrated LLMs for high-level summarization. Implemented anomaly detection pipeline for data quality monitoring. Designed for near-real-time clinical workflows.',
-    tags: ['LSTM', 'LLM', 'PYTHON', 'ML'],
+    tags: ['LSTM', 'LLM', 'Python', 'ML'],
     github: 'https://github.com/Harsh-H-Shah',
     image: '/images/healthsynopsis.jpg',
-    priority: 'HIGH',
+    priority: 'Featured',
   },
   {
     id: 2,
-    title: 'SPOTIFIND INSPIRATION',
+    title: 'Spotifind Inspiration',
     description: 'HopperHacks 2025 Winner',
     fullDesc: 'Accessibility-first multimodal app with voice-activated object recognition and gesture-based kiosk navigation for hearing-impaired users. Integrated Gemini for multilingual translation and voice commands. Built voice recognition and kiosk UI components.',
-    tags: ['VOICE AI', 'GEMINI', 'ACCESSIBILITY'],
+    tags: ['Voice AI', 'Gemini', 'Accessibility'],
     github: 'https://github.com/Harsh-H-Shah',
     image: '/images/spotifind.jpg',
-    priority: 'HIGH',
+    priority: 'Featured',
   },
   {
     id: 3,
-    title: 'METAMASK SECURITY',
+    title: 'MetaMask Security',
     description: 'Address-poisoning detection',
     fullDesc: 'Implemented and tested defenses against address-poisoning attacks for MetaMask extension. Design checks include similarity to previous addresses, transaction history checks, and heuristics to detect suspicious receiving addresses.',
-    tags: ['TYPESCRIPT', 'SECURITY', 'BROWSER EXT'],
+    tags: ['TypeScript', 'Security', 'Browser Ext'],
     github: 'https://github.com/Harsh-H-Shah/metamask-security-addition',
     image: '/images/metamask.jpg',
-    priority: 'HIGH',
+    priority: 'Featured',
   },
   {
     id: 4,
-    title: 'ZAPMAP',
+    title: 'ZapMap',
     description: 'EV charging microservices',
     fullDesc: 'Full-stack microservices platform for EV charging station discovery and route optimization. Optimized A* pathfinding reducing route calculation latency by 60%. Built scalable REST APIs for real-time station availability.',
-    tags: ['FLASK', 'DOCKER', 'REST API'],
+    tags: ['Flask', 'Docker', 'REST API'],
     github: 'https://github.com/Harsh-H-Shah',
     image: '/images/zapmap.jpg',
-    priority: 'MEDIUM',
+    priority: 'Project',
   },
   {
     id: 5,
-    title: 'RASHI PAY',
+    title: 'Rashi Pay',
     description: 'Smart India Hackathon Winner',
     fullDesc: 'Offline payment app using Bluetooth with 2048-bit RSA encryption. Enables secure transactions in areas with no internet connectivity. Won Smart India Hackathon 2022.',
-    tags: ['REACT NATIVE', 'NODE JS', 'CRYPTO'],
+    tags: ['React Native', 'Node.js', 'Crypto'],
     github: 'https://github.com/Harsh-H-Shah',
     image: '/images/rashipay-new.png',
-    priority: 'HIGH',
+    priority: 'Featured',
   },
   {
     id: 6,
-    title: 'ALPHA TRADING',
+    title: 'Alpha Trading',
     description: 'ML-powered trading simulation',
     fullDesc: 'Low-latency trading simulation with WebSocket feeds for 500+ stocks. Designed algorithmic strategies and backtesting pipelines. LSTM predictions with 85% accuracy for price movement.',
-    tags: ['REACT', 'WEBSOCKET', 'ML'],
+    tags: ['React', 'WebSocket', 'ML'],
     github: 'https://github.com/Harsh-H-Shah',
     image: '/images/alphatrading.jpg',
-    priority: 'MEDIUM',
+    priority: 'Project',
   },
 ];
 
@@ -84,12 +84,10 @@ const cardVariants = {
   hidden: { 
     opacity: 0, 
     y: 40,
-    rotateX: -15,
   },
   visible: { 
     opacity: 1, 
     y: 0,
-    rotateX: 0,
     transition: {
       duration: 0.6,
       ease: [0.25, 0.46, 0.45, 0.94],
@@ -98,19 +96,19 @@ const cardVariants = {
 };
 
 const modalVariants = {
-  hidden: { opacity: 0, scale: 0.8 },
+  hidden: { opacity: 0, scale: 0.95 },
   visible: { 
     opacity: 1, 
     scale: 1, 
     transition: {
-      duration: 0.4,
+      duration: 0.3,
       ease: [0.25, 0.46, 0.45, 0.94],
     },
   },
   exit: { 
     opacity: 0, 
-    scale: 0.8,
-    transition: { duration: 0.3 },
+    scale: 0.95,
+    transition: { duration: 0.2 },
   },
 };
 
@@ -146,12 +144,12 @@ export default function Projects() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <span className={styles.sectionLabel}>// CLASSIFIED FILES</span>
-          <h2 className={styles.sectionTitle}>PROJECT ARCHIVE</h2>
-          <p className={styles.sectionSubtitle}>&gt; Click on a case file to access full records</p>
+          <span className={styles.sectionLabel}>Selected Work</span>
+          <h2 className={styles.sectionTitle}>Projects</h2>
+          <p className={styles.sectionSubtitle}>Click on a project to view details</p>
         </motion.div>
 
-        {/* 3D Grid of cards */}
+        {/* Grid of cards */}
         <motion.div 
           className={styles.grid}
           variants={containerVariants}
@@ -162,19 +160,17 @@ export default function Projects() {
           {projects.map((project, index) => (
             <motion.div
               key={project.id}
-              className={`${styles.card} tva-corners`}
+              className={styles.card}
               variants={cardVariants}
               whileHover={{ 
-                y: -10, 
-                rotateX: 5,
-                rotateY: -5,
+                y: -8, 
                 transition: { duration: 0.3 }
               }}
               onClick={() => setSelectedProject(project)}
             >
               {/* Card header */}
               <div className={styles.cardHeader}>
-                <span className={styles.cardNumber}>CASE 00{index + 1}</span>
+                <span className={styles.cardNumber}>0{index + 1}</span>
                 <span className={`${styles.cardPriority} ${styles[project.priority.toLowerCase()]}`}>
                   {project.priority}
                 </span>
@@ -182,7 +178,7 @@ export default function Projects() {
               
               {/* Card content */}
               <h3 className={styles.cardTitle}>{project.title}</h3>
-              <p className={styles.cardDesc}>&gt; {project.description}</p>
+              <p className={styles.cardDesc}>{project.description}</p>
               
               {/* Tags */}
               <div className={styles.cardTags}>
@@ -193,21 +189,14 @@ export default function Projects() {
               
               {/* Footer */}
               <div className={styles.cardFooter}>
-                <span className={styles.cardLink}>ACCESS FILE →</span>
+                <span className={styles.cardLink}>View Details →</span>
               </div>
-              
-              {/* Corner decorations */}
-              <div className={styles.cardCornerTL} />
-              <div className={styles.cardCornerBR} />
-              
-              {/* Hover glow */}
-              <div className={styles.cardGlow} />
             </motion.div>
           ))}
         </motion.div>
       </div>
 
-      {/* Modal Overlay - Portalled to body to escape z-index hell */}
+      {/* Modal Overlay */}
       <AnimatePresence>
         {selectedProject && (
           <Portal>
@@ -251,14 +240,14 @@ export default function Projects() {
                 
                 <div className={styles.modalContent}>
                   <div className={styles.modalHeader}>
-                    <span className={styles.modalNumber}>CASE FILE</span>
+                    <span className={styles.modalNumber}>Project</span>
                     <span className={`${styles.modalPriority} ${styles[selectedProject.priority.toLowerCase()]}`}>
-                      PRIORITY: {selectedProject.priority}
+                      {selectedProject.priority}
                     </span>
                   </div>
                   
                   <h3 className={styles.modalTitle}>{selectedProject.title}</h3>
-                  <p className={styles.modalDesc}>&gt; {selectedProject.fullDesc}</p>
+                  <p className={styles.modalDesc}>{selectedProject.fullDesc}</p>
                   
                   <div className={styles.modalTags}>
                     {selectedProject.tags.map((tag) => (
@@ -272,13 +261,9 @@ export default function Projects() {
                     rel="noopener noreferrer"
                     className={styles.modalLink}
                   >
-                    VIEW ON GITHUB →
+                    View on GitHub →
                   </a>
                 </div>
-                
-                {/* Corner decorations */}
-                <div className={styles.modalCornerTL} />
-                <div className={styles.modalCornerBR} />
               </div>
             </motion.div>
           </Portal>

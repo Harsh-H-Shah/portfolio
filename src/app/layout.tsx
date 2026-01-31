@@ -9,52 +9,15 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
-import {
-  UnifrakturMaguntia,
-  Special_Elite,
-  Homemade_Apple,
-  Rye,
-  Oswald,
-} from "next/font/google";
-
-const unifraktur = UnifrakturMaguntia({
-  weight: "400",
-  subsets: ["latin"],
-  variable: "--font-unifraktur",
-});
-
-const specialElite = Special_Elite({
-  weight: "400",
-  subsets: ["latin"],
-  variable: "--font-special-elite",
-});
-
-const homemadeApple = Homemade_Apple({
-  weight: "400",
-  subsets: ["latin"],
-  variable: "--font-homemade-apple",
-});
-
-const rye = Rye({
-  weight: "400",
-  subsets: ["latin"],
-  variable: "--font-rye",
-});
-
-const oswald = Oswald({
-  subsets: ["latin"],
-  variable: "--font-oswald",
-});
-
 export const metadata: Metadata = {
   title: "Harsh Shah | Software Engineer",
   description:
-    "Software Engineer & Graduate Student at Georgia Tech. Passionate about building exceptional digital experiences with React, Next.js, and Machine Learning.",
+    "Software Engineer & Graduate Student at Stony Brook University. Passionate about building exceptional digital experiences with React, Next.js, and Machine Learning.",
   keywords: [
     "Harsh Shah",
     "Software Engineer",
     "Full Stack Developer",
-    "Georgia Tech",
+    "Stony Brook University",
     "React",
     "Next.js",
     "Machine Learning",
@@ -68,7 +31,7 @@ export const metadata: Metadata = {
     siteName: "Harsh Shah Portfolio",
     title: "Harsh Shah | Software Engineer",
     description:
-      "Software Engineer & Graduate Student at Georgia Tech. Building exceptional digital experiences.",
+      "Software Engineer & Graduate Student at Stony Brook University. Building exceptional digital experiences.",
     images: [
       {
         url: "/images/logo.png",
@@ -82,7 +45,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Harsh Shah | Software Engineer",
     description:
-      "Software Engineer & Graduate Student at Georgia Tech. Building exceptional digital experiences.",
+      "Software Engineer & Graduate Student at Stony Brook University. Building exceptional digital experiences.",
     images: ["/images/logo.png"],
   },
   icons: {
@@ -98,9 +61,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${unifraktur.variable} ${specialElite.variable} ${homemadeApple.variable} ${rye.variable} ${oswald.variable}`}>
+    <html lang="en" className={inter.variable}>
       <body>
-        <div className="bg-gradient" />
         <AppWrapper>
           {children}
         </AppWrapper>
