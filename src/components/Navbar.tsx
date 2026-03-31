@@ -1,117 +1,130 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect, useCallback } from 'react';
+import { motion, useScroll, useTransform, useMotionValueEvent } from 'framer-motion';
 import styles from './Navbar.module.css';
 
-const navLinks = [
-  { name: 'ABOUT', href: '#about' },
-  { name: 'SKILLS', href: '#skills' },
-  { name: 'PROJECTS', href: '#projects' },
-  { name: 'CONTACT', href: '#contact' },
+const sections = [
+  { id: 'hero', label: 'Home', num: '01' },
+  { id: 'about', label: 'About', num: '02' },
+  { id: 'skills', label: 'Skills', num: '03' },
+  { id: 'projects', label: 'Work', num: '04' },
+  { id: 'contact', label: 'Say Hi', num: '05' },
 ];
 
 export default function Navbar() {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [active, setActive] = useState('hero');
+  const [activeIdx, setActiveIdx] = useState(0);
+  const [visible, setVisible] = useState(false);
+  const { scrollYProgress, scrollY } = useScroll();
+  const circleRotation = useTransform(scrollYProgress, [0, 1], [0, 360]);
+  const progressHeight = useTransform(scrollYProgress, [0, 1], ['0%', '100%']);
+
+  // Show nav only after scrolling past hero
+  useMotionValueEvent(scrollY, 'change', (latest) => {
+    setVisible(latest > 500);
+  });
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActive(entry.target.id);
+            const idx = sections.findIndex((s) => s.id === entry.target.id);
+            if (idx >= 0) setActiveIdx(idx);
+          }
+        });
+      },
+      { rootMargin: '-40% 0px -40% 0px' }
+    );
+
+    sections.forEach(({ id }) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
   }, []);
 
+  const handleClick = useCallback((id: string) => {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  }, []);
+
+  const handleWheel = useCallback((e: React.WheelEvent) => {
+    e.preventDefault();
+    const direction = e.deltaY > 0 ? 1 : -1;
+    const nextIdx = Math.max(0, Math.min(sections.length - 1, activeIdx + direction));
+    handleClick(sections[nextIdx].id);
+  }, [activeIdx, handleClick]);
+
+  const circleTextContent = sections.map((s) => s.label.toUpperCase()).join(' · ') + ' · ';
+
   return (
-    <motion.nav
-      className={`${styles.navbar} ${isScrolled ? styles.scrolled : ''}`}
-      initial={{ y: -100, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-    >
-      <div className={`container ${styles.navContent}`}>
-        <a href="#" className={styles.logo}>
-          <span className={styles.logoText}>HARSH</span>
-          <span className={styles.logoDot}>.</span>
-        </a>
+    <>
+      {/* Left — Rotating Circle Nav (appears after hero) */}
+      <motion.div
+        className={styles.navWrapper}
+        initial={{ opacity: 0, x: -30 }}
+        animate={{ opacity: visible ? 1 : 0, x: visible ? 0 : -30 }}
+        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+        style={{ pointerEvents: visible ? 'auto' : 'none' }}
+      >
+        <div className={styles.circleNav} onWheel={handleWheel}>
+          <div className={styles.circleRing} />
 
-        {/* Desktop Navigation */}
-        <ul className={styles.navLinks}>
-          {navLinks.map((link, index) => (
-            <motion.li 
-              key={link.name}
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 + index * 0.05, duration: 0.4 }}
+          <motion.svg
+            className={styles.circleText}
+            viewBox="0 0 120 120"
+            style={{ rotate: circleRotation }}
+          >
+            <defs>
+              <path
+                id="navCirclePath"
+                d="M 60,60 m -46,0 a 46,46 0 1,1 92,0 a 46,46 0 1,1 -92,0"
+              />
+            </defs>
+            <text className={styles.circleTextPath}>
+              <textPath href="#navCirclePath" startOffset="0%">
+                {circleTextContent}
+              </textPath>
+            </text>
+          </motion.svg>
+
+          <div className={styles.circleCenter}>
+            <span className={styles.circleCenterNum}>{sections[activeIdx].num}</span>
+            <span className={styles.circleCenterLabel}>{sections[activeIdx].label}</span>
+          </div>
+        </div>
+
+        <div className={styles.sectionDots}>
+          {sections.map(({ id, label }) => (
+            <button
+              key={id}
+              className={`${styles.dot} ${active === id ? styles.dotActive : ''}`}
+              onClick={() => handleClick(id)}
+              aria-label={label}
             >
-              <a href={link.href} className={styles.navLink}>
-                {link.name}
-              </a>
-            </motion.li>
+              <span className={styles.dotTooltip}>{label}</span>
+            </button>
           ))}
-          <motion.li
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.35, duration: 0.4 }}
-          >
-            <a
-              href="/Harsh_Shah.pdf"
-              className={styles.resumeBtn}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              RESUME
-            </a>
-          </motion.li>
-        </ul>
+        </div>
+      </motion.div>
 
-        {/* Mobile Menu Button */}
-        <button
-          className={styles.mobileMenuBtn}
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          aria-label="Toggle menu"
-        >
-          <span className={`${styles.hamburger} ${isMobileMenuOpen ? styles.open : ''}`} />
-        </button>
-      </div>
-
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
-            className={styles.mobileMenu}
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-          >
-            <ul className={styles.mobileNavLinks}>
-              {navLinks.map((link) => (
-                <li key={link.name}>
-                  <a
-                    href={link.href}
-                    className={styles.mobileNavLink}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    {link.name}
-                  </a>
-                </li>
-              ))}
-              <li>
-                <a
-                      href="/Harsh_Shah.pdf"
-                  className={styles.mobileResumeBtn}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  RESUME
-                </a>
-              </li>
-            </ul>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.nav>
+      {/* Right — Vertical Progress Bar (also appears after hero) */}
+      <motion.div
+        className={styles.progressWrapper}
+        initial={{ opacity: 0, x: 20 }}
+        animate={{ opacity: visible ? 1 : 0, x: visible ? 0 : 20 }}
+        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+        style={{ pointerEvents: visible ? 'auto' : 'none' }}
+      >
+        <span className={styles.progressLabel}>scroll</span>
+        <div className={styles.progressTrack}>
+          <motion.div className={styles.progressFill} style={{ height: progressHeight }} />
+        </div>
+      </motion.div>
+    </>
   );
 }

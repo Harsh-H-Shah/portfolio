@@ -1,12 +1,25 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Syne, Space_Grotesk, Instrument_Serif } from "next/font/google";
 import "./globals.css";
-import AppWrapper from "@/components/AppWrapper";
 
-const inter = Inter({
+const syne = Syne({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-inter",
+  variable: "--font-syne",
+});
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-space-grotesk",
+});
+
+const instrumentSerif = Instrument_Serif({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-instrument-serif",
+  weight: "400",
+  style: ["normal", "italic"],
 });
 
 export const metadata: Metadata = {
@@ -61,11 +74,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang="en" className={`${syne.variable} ${spaceGrotesk.variable} ${instrumentSerif.variable}`}>
       <body>
-        <AppWrapper>
-          {children}
-        </AppWrapper>
+        {children}
       </body>
     </html>
   );
