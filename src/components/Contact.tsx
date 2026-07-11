@@ -102,7 +102,7 @@ const FILE_SYSTEM: Record<string, string[]> = {
 const FILE_CONTENTS: Record<string, string> = {
   'about.txt': 'I am a Software Engineer pursuing my MS in CS at Stony Brook.',
   'skills.json': '["React", "Next.js", "TypeScript", "Python", "Go", "Docker"]',
-  'contact.sh': 'echo "harsh@harsh.software"',
+  'contact.sh': 'echo "harshmkvviv@gmail.com"',
   'snappyxo.md': '# SnappyXO\nDeveloped web platforms for robotics curriculum.',
   'gemini-voice.md': '# HopperHacks\nBuilt a Voice AI interface using Gemini.',
   'sih.md': '# SIH Winner\nImplemented offline mesh-network payments.'
@@ -232,7 +232,7 @@ export default function Contact() {
         ];
       } else if (baseCmd === 'contact') {
         newOutput = [
-          { type: 'link', text: '', link: 'mailto:harsh@harsh.software' }
+          { type: 'link', text: '', link: 'mailto:harshmkvviv@gmail.com' }
         ];
       } else if (baseCmd === 'sudo') {
         newOutput = { type: 'output', text: 'nice try. permission denied. this incident will be reported.' };
@@ -307,7 +307,7 @@ export default function Contact() {
                 <FiLinkedin className={styles.socialIcon} />
                 LinkedIn
               </a>
-              <a href="mailto:harsh@harsh.software" className={styles.socialCard}>
+              <a href="mailto:harshmkvviv@gmail.com" className={styles.socialCard}>
                 <FiMail className={styles.socialIcon} />
                 Email
               </a>
@@ -361,7 +361,7 @@ export default function Contact() {
                     <span className={styles.termComment}>
                       // Email:{' '}
                       <a href={item.link} className={styles.termLink}>
-                        <TypewriterLine text="harsh@harsh.software" skipAnim={item.skipAnim} />
+                        <TypewriterLine text="harshmkvviv@gmail.com" skipAnim={item.skipAnim} />
                       </a>
                     </span>
                   )}
@@ -385,7 +385,6 @@ export default function Contact() {
                       className={styles.termHiddenInput}
                       autoComplete="off"
                       spellCheck="false"
-                      autoFocus
                     />
                   </div>
                 </div>

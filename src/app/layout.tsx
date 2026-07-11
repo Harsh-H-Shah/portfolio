@@ -23,6 +23,7 @@ const instrumentSerif = Instrument_Serif({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://harsh-h-shah.github.io/portfolio"),
   title: "Harsh Shah | Software Engineer",
   description:
     "Software Engineer & Graduate Student at Stony Brook University. Passionate about building exceptional digital experiences with React, Next.js, and Machine Learning.",
@@ -40,7 +41,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://harsh.software",
+    url: "https://harsh-h-shah.github.io/portfolio",
     siteName: "Harsh Shah Portfolio",
     title: "Harsh Shah | Software Engineer",
     description:
@@ -62,10 +63,10 @@ export const metadata: Metadata = {
     images: ["/images/logo.png"],
   },
   icons: {
-    icon: "/favicon-h.png",
-    apple: "/images/logo192.png",
+    icon: "/portfolio/favicon-h.png",
+    apple: "/portfolio/images/logo192.png",
   },
-  manifest: "/manifest.json",
+  manifest: "/portfolio/manifest.json",
 };
 
 export default function RootLayout({

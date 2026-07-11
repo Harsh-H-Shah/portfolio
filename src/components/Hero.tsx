@@ -43,13 +43,13 @@ export default function Hero() {
 
           <motion.div className={styles.actions} variants={fadeUp(0.3)} initial="hidden" animate="visible">
             <a href="#projects" className={styles.btnPrimary}>See my work →</a>
-            <a href="/Harsh_Shah.pdf" target="_blank" className={styles.btnSecondary}>Resume</a>
+            <a href="/portfolio/Harsh_Shah.pdf" target="_blank" className={styles.btnSecondary}>Resume</a>
           </motion.div>
 
           <motion.div className={styles.socialRow} variants={fadeUp(0.4)} initial="hidden" animate="visible">
             <a href="https://github.com/Harsh-H-Shah" target="_blank" rel="noopener noreferrer" className={styles.socialLink}>GitHub</a>
             <a href="https://linkedin.com/in/harsh-h-shah" target="_blank" rel="noopener noreferrer" className={styles.socialLink}>LinkedIn</a>
-            <a href="mailto:harsh@harsh.software" className={styles.socialLink}>Email</a>
+            <a href="mailto:harshmkvviv@gmail.com" className={styles.socialLink}>Email</a>
           </motion.div>
         </div>
 
@@ -70,7 +70,7 @@ export default function Hero() {
           </motion.div>
           <div className={styles.imageGlow} />
           <div className={styles.imageFrame}>
-            <Image src="/images/Harsh_image.jpg" alt="Harsh Shah" fill priority style={{ objectFit: 'cover' }} />
+            <Image src="/portfolio/images/Harsh_image.jpg" alt="Harsh Shah" fill priority style={{ objectFit: 'cover' }} />
           </div>
           <motion.span className={`${styles.floatingCross} ${styles.cross1}`} animate={{ y: [0, -8, 0], rotate: [0, 45, 0] }} transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}>+</motion.span>
           <motion.span className={`${styles.floatingCross} ${styles.cross2}`} animate={{ y: [0, 6, 0], rotate: [0, -30, 0] }} transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut', delay: 1 }}>+</motion.span>
