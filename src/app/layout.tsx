@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Syne, Space_Grotesk, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 
@@ -78,6 +79,11 @@ export default function RootLayout({
     <html lang="en" className={`${syne.variable} ${spaceGrotesk.variable} ${instrumentSerif.variable}`}>
       <body>
         {children}
+        <Script
+          strategy="afterInteractive"
+          src="https://static.cloudflareinsights.com/beacon.min.js"
+          data-cf-beacon='{"token": "55bba0c6db6f4c358dfa191d3482239f"}'
+        />
       </body>
     </html>
   );
