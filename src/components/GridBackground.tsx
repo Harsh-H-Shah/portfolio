@@ -38,7 +38,14 @@ export default function GridBackground() {
       });
     }
 
-    const draw = () => {
+    const frameInterval = 1000 / 30; // cap to ~30fps, this is ambient decoration
+    let lastFrameTime = 0;
+
+    const draw = (time: number) => {
+      animationId = requestAnimationFrame(draw);
+      if (time - lastFrameTime < frameInterval) return;
+      lastFrameTime = time;
+
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       // Draw dot grid
@@ -84,8 +91,6 @@ export default function GridBackground() {
         ctx.fillText(el.type, 0, 0);
         ctx.restore();
       });
-
-      animationId = requestAnimationFrame(draw);
     };
 
     const handleMouseMove = (e: MouseEvent) => {
@@ -104,10 +109,15 @@ export default function GridBackground() {
     window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('resize', resize);
     window.addEventListener('scroll', handleScroll);
-    draw();
+
+    // Defer starting the draw loop so it doesn't compete with initial paint/LCP
+    const ric = window.requestIdleCallback ?? ((cb: IdleRequestCallback) => window.setTimeout(() => cb({ didTimeout: false, timeRemaining: () => 0 } as IdleDeadline), 200));
+    const cic = window.cancelIdleCallback ?? window.clearTimeout;
+    const idleId = ric(() => requestAnimationFrame(draw));
 
     return () => {
       cancelAnimationFrame(animationId);
+      cic(idleId);
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('resize', resize);
       window.removeEventListener('scroll', handleScroll);

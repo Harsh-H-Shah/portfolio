@@ -70,7 +70,7 @@ export default function Hero() {
           </motion.div>
           <div className={styles.imageGlow} />
           <div className={styles.imageFrame}>
-            <Image src="/images/Harsh_image.jpg" alt="Harsh Shah" fill priority style={{ objectFit: 'cover' }} />
+            <Image src="/images/Harsh_image.webp" alt="Harsh Shah" fill priority style={{ objectFit: 'cover' }} />
           </div>
           <motion.span className={`${styles.floatingCross} ${styles.cross1}`} animate={{ y: [0, -8, 0], rotate: [0, 45, 0] }} transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}>+</motion.span>
           <motion.span className={`${styles.floatingCross} ${styles.cross2}`} animate={{ y: [0, 6, 0], rotate: [0, -30, 0] }} transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut', delay: 1 }}>+</motion.span>
