@@ -38,7 +38,7 @@ export default function About() {
             <div className={styles.imageFrame}>
               <div className={styles.imageWrapper}>
                 <Image 
-                  src="/portfolio/images/harsh-about.png"
+                  src="/images/harsh-about.png"
                   alt="Harsh Shah" 
                   fill 
                   className={styles.aboutImage} 
